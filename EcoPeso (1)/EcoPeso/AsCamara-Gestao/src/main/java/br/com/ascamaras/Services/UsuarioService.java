@@ -6,6 +6,7 @@ import br.com.ascamaras.Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,24 +15,28 @@ import java.util.Optional;
 public class UsuarioService {
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Transactional
-    public UsuarioModel salvarUsuario(UsuarioModel usuarioDto) {
+    public UsuarioModel salvarUsuario(UsuarioDto usuarioDto) {
         validarDadosUsuario(usuarioDto);
 
         UsuarioModel usuario = new UsuarioModel();
         usuario.setNome(usuarioDto.getNome());
-        usuario.setSobrenome(usuarioDto.getSobrenome());
+        usuario.setSobrenome(usuarioDto.getSobrenome() != null ? usuarioDto.getSobrenome() : "");
         usuario.setEmail(usuarioDto.getEmail());
-        usuario.setUsername(usuarioDto.getUsername());
+        usuario.setUsername(gerarUsername(usuarioDto.getEmail()));
         usuario.setRole("ROLE_USER");
+        usuario.setSenha(passwordEncoder.encode(usuarioDto.getSenha())); // 🔥 Criptografa a senha
 
         return usuarioRepository.save(usuario);
-    }
 
-    private void validarDadosUsuario(UsuarioModel usuarioDto) {
-        if (usuarioRepository.existsByUsername(usuarioDto.getUsername())) {
+}
+
+    private void validarDadosUsuario(UsuarioDto usuarioDto) {
+        if (usuarioRepository.existsByUsername(gerarUsername(usuarioDto.getEmail()))){
             throw new IllegalArgumentException("Nome de usuário já está em uso");
         }
 
@@ -46,27 +51,46 @@ public class UsuarioService {
         if (usuarioDto.getSenha().length() < 6) {
             throw new IllegalArgumentException("A senha deve ter pelo menos 6 caracteres");
         }
-    }
+
+
+
+}
 
     @Transactional
     public UsuarioModel criarUsuario(UsuarioDto usuarioDto) {
+        // Validação do email
         if (!validarEmail(usuarioDto.getEmail())) {
             throw new IllegalArgumentException("O email precisa terminar com @gmail.com");
         }
 
+        // Verificar se email já existe
         if (usuarioRepository.existsByEmail(usuarioDto.getEmail())) {
             throw new IllegalArgumentException("Email já está em uso");
         }
 
+        // Validação das senhas
+        if (!usuarioDto.getSenha().equals(usuarioDto.getConfirmarSenha())) {
+            throw new IllegalArgumentException("As senhas não coincidem");
+        }
+
+        if (usuarioDto.getSenha().length() < 6) {
+            throw new IllegalArgumentException("A senha deve ter pelo menos 6 caracteres");
+        }
+
+        // Criação do usuário
         UsuarioModel usuario = new UsuarioModel();
         usuario.setNome(usuarioDto.getNome());
-        usuario.setSobrenome(usuarioDto.getSobrenome() != null ? usuarioDto.getSobrenome() : "");
+        usuario.setSobrenome(
+                usuarioDto.getSobrenome() != null ? usuarioDto.getSobrenome() : "");
         usuario.setEmail(usuarioDto.getEmail());
         usuario.setUsername(gerarUsername(usuarioDto.getEmail()));
+        usuario.setSenha(passwordEncoder.encode(usuarioDto.getSenha())); // 🔥 AQUI ADICIONA A SENHA
         usuario.setRole(usuarioDto.getRole() != null ? usuarioDto.getRole() : "ROLE_USER");
 
+        // Salvar no banco
         return usuarioRepository.save(usuario);
-    }
+
+}
 
     @Transactional
     public UsuarioModel atualizarUsuario(Long id, UsuarioDto usuarioDTO) {

@@ -221,7 +221,7 @@
 
   <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-  <form th:action="@{/gerenciar_usuarios/editar_usuario/{id}(id=${usuarioId})}"
+  <form th:action="@{/gerenciar_usuario/editar_usuario/{id}(id=${usuarioId})}"
         method="post"
         th:object="${usuarioDto}">
     <input type="hidden" th:field="*{id}">

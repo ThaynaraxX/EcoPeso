@@ -46,7 +46,7 @@
 
     .main-content {
         flex: 1;
-        margin-left: var(--sidebar-width);
+        margin-left: 200px(--sidebar-width);
         padding: 30px;
     }
 
@@ -163,10 +163,10 @@
         <td th:text="${usuario.role == 'ROLE_ADMIN' ? 'Administrador' : 'Usuário'}"></td>
         <td>
           <div class="action-buttons">
-            <a th:href="@{/adicionar_usuario/editar_usuario/{id}(id=${usuario.id})}" class="btn btn-edit">
+            <a th:href="@{/gerenciar_usuario/editar_usuario/{id}(id=${usuario.id})}" class="btn btn-edit">
               <i class="fas fa-edit"></i> Editar
             </a>
-            <form th:action="@{/excluir/{id}(id=${usuario.id})}" method="post" style="display:inline;">
+            <form th:action="@{/gerenciar_usuario/excluir/{id}(id=${usuario.id})}" method="post" style="display:inline;">
               <button type="submit" class="btn btn-delete">
                 <i class="fas fa-trash"></i> Excluir
               </button>

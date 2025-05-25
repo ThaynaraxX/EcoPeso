@@ -124,8 +124,4 @@ public class UsuarioModel {
         return username;
     }
 
-    @Transient
-    public String getConfirmarSenha() {
-        return null;
-    }
 }
