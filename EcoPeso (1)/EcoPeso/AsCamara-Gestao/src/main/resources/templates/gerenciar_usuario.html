@@ -34,6 +34,10 @@
         min-height: 100vh;
         overflow-x: hidden;
     }
+      .voltar-btn:hover {
+       background-color: #c62828;
+       transform: translateY(-2px);
+    }
 
     .sidebar {
         width: var(--sidebar-width);
@@ -44,10 +48,35 @@
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     }
 
+       .voltar-btn {
+        background-color: var(--secondary-color);
+        color: var(--white);
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+    /* Apenas o botão voltar terá esse posicionamento */
+    position: fixed;
+    top: 20px;
+    right: 120px; /* Ajuste conforme necessário */
+}
+    .header, .btn-add, .table-container {
+        margin-left: 20px; /* ou 30px se quiser mais espaço */
+}
+
     .main-content {
-        flex: 1;
-        margin-left: 200px(--sidebar-width);
-        padding: 30px;
+    flex: 1;
+    margin-left: calc(20px + var (--sidebar-width)); /* Só se tiver sidebar */
+    padding: 30px 40px;
+
+}
+
     }
 
     .header {
@@ -72,8 +101,8 @@
         gap: 5px;
         transition: all 0.3s;
         text-decoration: none;
-    }
 
+   }
     .btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -143,7 +172,9 @@
   <a th:href="@{/gerenciar_usuario/adicionar_usuario}" class="btn btn-add">
     <i class="fas fa-plus"></i> Adicionar Usuário
   </a>
-
+  <button class="voltar-btn" onclick="window.location.href='/menu'">
+    <i class="fas fa-sign-out-alt"></i> Voltar ao menu
+  </button>
   <div class="table-container">
     <table>
       <thead>
@@ -163,7 +194,8 @@
         <td th:text="${usuario.role == 'ROLE_ADMIN' ? 'Administrador' : 'Usuário'}"></td>
         <td>
           <div class="action-buttons">
-            <a th:href="@{/gerenciar_usuario/editar_usuario/{id}(id=${usuario.id})}" class="btn btn-edit">
+            <a th:href="@{/gerenciar_usuario/editar_usuario/{id}(id=${usuario.id})}"
+               class="btn btn-edit">
               <i class="fas fa-edit"></i> Editar
             </a>
             <form th:action="@{/gerenciar_usuario/excluir/{id}(id=${usuario.id})}" method="post" style="display:inline;">

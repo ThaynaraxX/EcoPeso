@@ -212,7 +212,7 @@
 </head>
 <body>
 <div class="register-container">
-  <a th:href="@{/gerenciar-usuarios}" class="back-link" onclick="window.location.href='./login.html'">
+  <a th:href="@{/gerenciar_usuario}" class="back-link" onclick="window.location.href='./login.html'">
     <i class="fas fa-arrow-left"></i> Voltar
   </a>
 
@@ -227,7 +227,7 @@
 
   <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
-  <form th:action="@{/gerenciar-usuarios/adicionar_usuario}" method="post" th:object="${usuarioDto}">
+  <form th:action="@{/gerenciar_usuario/adicionar_usuario}" method="post" th:object="${usuarioDto}">
     <div class="form-group">
       <label for="nome">Nome</label>
       <i class="fas fa-user input-icon"></i>

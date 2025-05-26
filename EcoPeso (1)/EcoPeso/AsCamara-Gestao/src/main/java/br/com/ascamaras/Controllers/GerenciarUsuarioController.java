@@ -48,6 +48,7 @@ public class GerenciarUsuarioController {
     public String editarUsuarioForm(@PathVariable Long id, Model model) {
         usuarioService.buscarUsuario(id).ifPresent(usuario -> {
             UsuarioDto usuarioDto = new UsuarioDto();
+            usuarioDto.setId(usuario.getId()); // 🔥 Adicione isto
             usuarioDto.setNome(usuario.getNome());
             usuarioDto.setSobrenome(usuario.getSobrenome());
             usuarioDto.setEmail(usuario.getEmail());
@@ -58,6 +59,7 @@ public class GerenciarUsuarioController {
         });
         return "editar_usuario";
     }
+
 
     // ✅ Ação para editar usuário
     @PostMapping("/gerenciar_usuario/editar_usuario/{id}")

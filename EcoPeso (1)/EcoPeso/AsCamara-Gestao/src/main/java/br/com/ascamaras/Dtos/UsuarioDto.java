@@ -2,6 +2,7 @@ package br.com.ascamaras.Dtos;
 
 public class UsuarioDto {
     private Long id;
+    private String username;
     private String nome;
     private String sobrenome;
     private String email;
@@ -16,6 +17,9 @@ public class UsuarioDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+    public String getUsername() {
+        return username;
     }
 
     public String getNome() {

@@ -2,6 +2,7 @@ package br.com.ascamaras.Dtos;
 
 
 public class UsuarioCadastroDto {
+    private Long id;
     private String nome;
     private String sobrenome;
     private String email;
