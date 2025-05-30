@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/EcoPeso/AsCamara-Gestao/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/EcoPeso/AsCamara-Gestao/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/EcoPeso/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/EcoPeso/src/main/resources" charset="UTF-8" />
+=======
+    <file url="file://$PROJECT_DIR$/EcoPeso (1)/EcoPeso/AsCamara-Gestao/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/EcoPeso (1)/EcoPeso/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/EcoPeso (1)/EcoPeso/src/main/resources" charset="UTF-8" />
+>>>>>>> 9c20035f8648b70f63a700e1ba2ac0bdc0a93539
   </component>
 </project>
